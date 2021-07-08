@@ -16,7 +16,7 @@ I have downloaded the firmware files from these urls:
 They can be loaded into ghidra as a Cortex little endian (the device is an Atmel ATSAM4SD32B). 
 Base address is 0x00800000, you will need the backup files in this repo in address 0x20000000 (SRAM) and 0x60000000 (external SRAM). I have not tryed to load it in IDA Pro as i have not an license.
 
-# Did until now
+# Testing it
 To start testing, i bought another device, which one i can do whatever i want. This device came in its 1.6 hardware version (previous device is 1.2). So i started from scratch and followed these steps:
 
 1. Reseted the device to its initial state
@@ -54,7 +54,7 @@ After that, i compared the bin backup files, with these results:
 3. Sometimes it changed the byte in the 'B' position (0x10B, 0x20B, 0x30B and so on)
 4. After changing the global PIN or pass, in steps 9 and 14, file changed completely, starting, again, from the offset 0x101.
 
-# Doing
+# Coding
 I know the password and PIN of this test wallet, and i think it is an AES-256 in CBC mode, so i tried to decrypt it in a simple springboot application. So, i created the try-decrypt java app with several simple command line runners investigating the backup file.
 
 1. CommandLineRunner: First try, its a garbage, just ignore.
