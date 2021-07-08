@@ -37,8 +37,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TesteAleatorio implements CommandLineRunner {
 
 	private static final boolean RUN = Boolean.TRUE;
-	private static final boolean RUN_OLD = Boolean.FALSE;
-	private static final boolean RUN_NEW = Boolean.TRUE;
+	private static final boolean RUN_OLD = Boolean.TRUE;
+	private static final boolean RUN_NEW = Boolean.FALSE;
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
 
@@ -62,6 +62,8 @@ public class TesteAleatorio implements CommandLineRunner {
 
 				byte[] ivByte = Arrays.copyOfRange(file, 0x100, 0x110);
 				IvParameterSpec iv = new IvParameterSpec(ivByte);
+				
+				System.out.println("Pass; Pin; Interactions; Reversed; Twice; base58; base64; length");
 
 				tryDecrypt("1234", "2341", iv, blockAes, Boolean.FALSE);
 				tryDecrypt("2341", "1234", iv, blockAes, Boolean.FALSE);
@@ -187,11 +189,14 @@ public class TesteAleatorio implements CommandLineRunner {
 					// Twice? %s\nDecrypted: %s",
 					// password, pin, iInner, reversed, twice, decrypted));
 
-					System.out.println(String.format(
-							"Pass = %s, Pin = %s, I = %d, Reversed? %s, Twice? %s, base58? %s, base64? %s, length = %d",
-							password, pin, iInner, reversed, twice, base58, base64, decryptedBytes.length));
+					try {
+					System.out.println(String.format("%s;%s;%d;%s;%s;%s;%s;%d", password, pin,
+							iInner, reversed, twice, base58, base64, decryptedBytes.length));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 
-				} catch (Exception e) {
+				} catch (Exception ex) {
 				}
 			});
 

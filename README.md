@@ -55,7 +55,21 @@ After that, i compared the bin backup files, with these results:
 4. After changing the global PIN or pass, in steps 9 and 14, file changed completely, starting, again, from the offset 0x101.
 
 # Coding
-I know the password and PIN of this test wallet, and i think it is an AES-256 in CBC mode, so i tried to decrypt it in a simple springboot application. So, i created the try-decrypt java app with several simple command line runners investigating the backup file.
+I know the password and PIN of this test wallet, and i think it is an AES-256 in CBC mode, so i tried to decrypt it in a simple springboot application. 
+So, i created the try-decrypt java app with several simple command line runners investigating the backup file.
+Code can be compiled and started from simply:
+```
+cd decrypt-bcvault/try-decrypt
+mvn clean install
+java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar
+```
+
+or, if you want to save results locally:
+```
+cd decrypt-bcvault/try-decrypt
+mvn clean install
+java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar |tee target/results.txt
+```
 
 1. CommandLineRunner: First try, its a garbage, just ignore.
 2. FindIVRunner: another mess, just ignore it too.
