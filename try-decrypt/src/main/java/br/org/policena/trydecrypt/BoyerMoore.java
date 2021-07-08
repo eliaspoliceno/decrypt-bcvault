@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.policena.trydecrypt;
+package br.org.policena.trydecrypt;
 
 /**
  * @since Jul 6, 2021

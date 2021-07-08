@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.policena.trydecrypt;
+package br.org.policena.trydecrypt;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -34,7 +34,8 @@ public class AESUtil {
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-//		KeySpec spec = new PBEKeySpec(password.toCharArray(), Base64.getEncoder().encode(salt.getBytes()), 65536, 256);
+		// KeySpec spec = new PBEKeySpec(password.toCharArray(),
+		// Base64.getEncoder().encode(salt.getBytes()), 65536, 256);
 		SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
 		return secret;
 	}

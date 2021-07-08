@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.policena.trydecrypt;
+package br.org.policena.trydecrypt;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -37,8 +37,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TesteAleatorio implements CommandLineRunner {
 
 	private static final boolean RUN = Boolean.TRUE;
-	private static final boolean RUN_OLD = Boolean.TRUE;
-	private static final boolean RUN_NEW = Boolean.FALSE;
+	private static final boolean RUN_OLD = Boolean.FALSE;
+	private static final boolean RUN_NEW = Boolean.TRUE;
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
 

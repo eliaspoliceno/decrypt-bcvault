@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.policena.trydecrypt;
+package br.org.policena.trydecrypt;
 
 import java.util.Arrays;
 

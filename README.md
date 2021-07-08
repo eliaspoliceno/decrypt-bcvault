@@ -58,14 +58,14 @@ After that, i compared the bin backup files, with these results:
 I know the password and PIN of this test wallet, and i think it is an AES-256 in CBC mode, so i tried to decrypt it in a simple springboot application. 
 So, i created the try-decrypt java app with several simple command line runners investigating the backup file.
 Code can be compiled and started from simply:
-```
+```console
 cd decrypt-bcvault/try-decrypt
 mvn clean install
 java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar
 ```
 
 or, if you want to save results locally:
-```
+```console
 cd decrypt-bcvault/try-decrypt
 mvn clean install
 java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar |tee target/results.txt
@@ -74,7 +74,7 @@ java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar |tee target/results.txt
 1. CommandLineRunner: First try, its a garbage, just ignore.
 2. FindIVRunner: another mess, just ignore it too.
 3. AnotherCommandLineRunner: I tought the private key were someway just encrypted in these 256-byte blocks, so i revealed one of them and tryed to encrypt, then compared with the binary file content. Too much slow, won't run in a amount of time i can wait for. After it, i minded that private keys are not simplely encrypted, because how could the desktop application know these names we give and generated addresses of the wallets?
-4. TesteAleatorio: ok, here things becomes interesting. You can control it by RUN, RUN_OLD and RUN_NEW static booleans. In RUN_OLD i created a PBKDF2WithHmacSHA256 key with pass and pin (used as a salt), varying interactions from 0 to 100000 and tryed to decrypt the block. I do several tests, like, decrypted twice, exchaging pass and pin, tried base58 and base64 reading, reversed the block byte array, etc. After that, i compiled the results (output/results.csv), which are: several interaction amounts can decrypt the block; the block is not twice encrypted; the block is not a base58 nor base64 encoded.
+4. <u>TesteAleatorio: ok, here things becomes interesting</u>. You can control it by RUN, RUN_OLD and RUN_NEW static booleans. In RUN_OLD i created a PBKDF2WithHmacSHA256 key with pass and pin (used as a salt), varying interactions from 0 to 100000 and tryed to decrypt the block. I do several tests, like, decrypted twice, exchaging pass and pin, tried base58 and base64 reading, reversed the block byte array, etc. **There were 1056 combinations that decrypted the file!** After that, i compiled the results (output/results.csv), which are: several interaction amounts can decrypt the block; the block is not twice encrypted; the block is not a base58 nor base64 encoded.
 5. Again in TesteAleatorio, now with RUN_NEW mode: now i got these interaction numbers in a csv file, i read the block and tryed to guess which encoding the decrypted block uses. Different interaction numbers produces same UTF-8 result (visually equals, i cannot guarantee), not human readable.
 
 # Help need

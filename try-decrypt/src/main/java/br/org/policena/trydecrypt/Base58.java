@@ -1,4 +1,4 @@
-package br.com.policena.trydecrypt;
+package br.org.policena.trydecrypt;
 
 public class Base58 {
 	
