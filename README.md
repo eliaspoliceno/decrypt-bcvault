@@ -82,7 +82,7 @@ Added BCrypt and Scrypt key specs to *TesteAleatorio* class, with a new *MODE* v
 Comes to me that the decrypted block have 239 bytes, and this number should be multiple of 16 to be another inner AES-256 CBC block. 
 Then, i added an offset from the beginning of the inner block to try to decrypt it.
 No SCrypt combinations decrypted the outer bytes block.
-Only two BCrypt combinations decrypted the block and also the inner block, again, i didn't know what i am seeing in these byte arrays.
+Only two BCrypt combinations decrypted the block and also the inner block and, again, i don't know what i am seeing in these byte arrays.
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.
