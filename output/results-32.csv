@@ -1,0 +1,13 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.2)
+
+2021-07-09 12:01:16.728  INFO 283172 --- [           main] b.o.p.trydecrypt.TryDecryptApplication   : Starting TryDecryptApplication v0.0.1-SNAPSHOT using Java 11.0.11 on TI-ELIAS-POLICENA-FEDORA-1 with PID 283172 (/home/elias/dev/ambiente/decrypt-bcvault/try-decrypt/target/try-decrypt-0.0.1-SNAPSHOT.jar started by elias in /home/elias/dev/ambiente/decrypt-bcvault/try-decrypt)
+2021-07-09 12:01:16.729  INFO 283172 --- [           main] b.o.p.trydecrypt.TryDecryptApplication   : No active profile set, falling back to default profiles: default
+2021-07-09 12:01:17.272  INFO 283172 --- [           main] b.o.p.trydecrypt.TryDecryptApplication   : Started TryDecryptApplication in 0.86 seconds (JVM running for 1.199)
+Pass; Pin; Interactions; Reversed; Twice; base58; base64; length
