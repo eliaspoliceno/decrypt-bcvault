@@ -82,7 +82,7 @@ Added BCrypt and Scrypt key specs to *TesteAleatorio* class, with a new *MODE* v
 Comes to me that the decrypted block have 239 bytes, and this number should be multiple of 16 to be another inner AES-256 CBC block.  
 Then, i added an 14 bytes length offset from the beginning of the result bytes block to try to decrypt the inner block. This 14 bytes i think they should store 32 character wallet name plus 34 character wallet address.  
 No SCrypt combinations decrypted the outer bytes block.  
-Only two BCrypt combinations decrypted the block and also the inner block and, again, i don't know what i am seeing in these byte arrays.  
+Only two BCrypt combinations decrypted the block but not the inner block and.  
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  
