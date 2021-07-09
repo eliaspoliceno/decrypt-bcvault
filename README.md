@@ -78,9 +78,11 @@ java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar |tee target/results.txt
 5. Again in TesteAleatorio, now with RUN_NEW mode: now i got these interaction numbers in a csv file, i read the block and tryed to guess which encoding the decrypted block uses. Different interaction numbers produces same UTF-8 result (visually equals, i cannot guarantee), not human readable.
 
 # Updates
-Added BCrypt and Scrypt key specs to *TesteAleatorio* class, with a new *MODE* variable to control which one to use. No SCrypt combinations decrypted the bytes block.
-Two BCrypt combinations decrypted the block and also the inner block, again, i didn't know what i am seeing in these byte arrays.
-Comes to me that the decrypted block have 239 bytes, and this number should be multiple of 16 to be another inner AES-256 CBC block. Then, i added an offset from the beginning of the inner block to try to decrypt it.
+Added BCrypt and Scrypt key specs to *TesteAleatorio* class, with a new *MODE* variable to control which one to use. 
+Comes to me that the decrypted block have 239 bytes, and this number should be multiple of 16 to be another inner AES-256 CBC block. 
+Then, i added an offset from the beginning of the inner block to try to decrypt it.
+No SCrypt combinations decrypted the outer bytes block.
+Only two BCrypt combinations decrypted the block and also the inner block, again, i didn't know what i am seeing in these byte arrays.
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.
