@@ -1,0 +1,5 @@
+name: second
+private key: 0CE190CF8364854AC3DBAFD86887757D7DA951B244672961AD3498BBF4A1ED83
+public address: 19Fh8qK7HCuQfwHEmujUD4VEmiwXgkwL2U
+type: btc
+memory region: 0x200 (0x201) ~ 0x300

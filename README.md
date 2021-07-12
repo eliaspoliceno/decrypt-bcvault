@@ -46,6 +46,8 @@ To start testing, i bought another device, which one i can do whatever i want. T
 25. Backup (file backups/25-bk_20210707_114957_3ke1HhjtW2gdPEzJVB9Ze.bin)  
 26. Created btc wallet with pass 1234, pin 2341 (named eighth, address 12tRBaEk33y74KWQPGwDUufWTdo2oUEdpB)  
 27. Backup (file backups/27-bk_20210707_115052_3ke1HhjtW2gdPEzJVB9Ze.bin)  
+28. Reveal all private keys
+29. Backup (file backups/29-29-bk_20210712_181433_3ke1HhjtW2gdPEzJVB9Zi.bin)
 
 After that, i compared the bin backup files, with these results:  
 1. First 0x100 bytes are apparently reserved for device name.  
@@ -83,6 +85,13 @@ Comes to me that the decrypted block have 239 bytes, and this number should be m
 Then, i added an 14 bytes length offset from the beginning of the result bytes block to try to decrypt the inner block. This 14 bytes i think they should store 32 character wallet name plus 34 character wallet address.  
 No SCrypt combinations decrypted the outer bytes block.  
 Only two BCrypt combinations decrypted the block but not the inner block and.  
+
+#### 2021-07-12
+BCVault security model article means that there is two security layers, one maded by your global pin and pass, and another made by each wallet pin and password.  
+Then comes to me that, after first layer decrypt, each block in memory is made by wallet public address (34-char long), wallet name (32-char long), wallet type (btc, eth, ltc...), and a flag that mark which wallets have them private keys revealed.  
+How many bytes are needed for storing these informations? Is it someway compressed? We can not forget that the remaining block must be larger enough to store the private key (65-char long).  
+So i revealed all private keys (wallets folder in this repo) and tried some kind of decompression algorithms (new classes added).  
+From the 1646 successful pin, pass and interactions combinations in first decrypt step, only 5 of them could decrypt inner block (output/results-inner-block.csv). All of them could decrypt the inner block by varying the offset which would say to us were this block starts.
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  

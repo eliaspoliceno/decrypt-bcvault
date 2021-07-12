@@ -1,0 +1,5 @@
+name: eighth
+private key: 742B85C5BC107536DBA23F72E40600DF093DE9D9BE7720F731FDE7633A40AD82
+public address: 12tRBaEk33y74KWQPGwDUufWTdo2oUEdpB
+type: btc
+memory region: 0x800 (0x801) ~ 0x900

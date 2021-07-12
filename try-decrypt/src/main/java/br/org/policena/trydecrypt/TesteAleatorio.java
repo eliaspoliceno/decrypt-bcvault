@@ -41,9 +41,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TesteAleatorio implements CommandLineRunner {
 
-	private static final boolean RUN = Boolean.TRUE;
-	private static final boolean RUN_OLD = Boolean.TRUE;
-	private static final boolean RUN_NEW = Boolean.FALSE;
+	private static final boolean RUN = Boolean.FALSE;
+	private static final boolean RUN_OLD = Boolean.FALSE;
+	private static final boolean RUN_NEW = Boolean.TRUE;
 	
 	private static int MODE = 1; // 0 for PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt
 	
@@ -128,25 +128,41 @@ public class TesteAleatorio implements CommandLineRunner {
 							}
 							
 							byte[] decrypted = cipher.doFinal(toDecrypt);
-							String encoding = guessEncoding(decrypted);
-							String decoded = new String(toDecrypt, encoding);
 							
-							System.out.println(String.format("%s;%s;%d;%s;%s", new String(pass), new String(pin), interactions, encoding, decoded));
+							byte[] header = Arrays.copyOfRange(decrypted, 0, decrypted.length - 224);
+//							ByteArrayInputStream bais = new ByteArrayInputStream(header);
+//							byte[] decompressed = new ZipInputStream(bais).readAllBytes();
 							
-							OutputStream os = new FileOutputStream("/tmp/hex" + counter.get() + ".hex");
-						    os.write(decrypted);
-						    os.close();
+							String encoding = Utils.guessEncoding(header);
+							String decoded = new String(header, encoding);
+							
+//							try {
+//								File f = new File("target/" + encoding + ".txt");
+//								if ( !f.exists() ) {
+//									f.createNewFile();
+//								}
+//							    Files.write(Paths.get(f.getPath()), header, StandardOpenOption.APPEND);
+//							}catch (IOException e) {
+//							    //exception handling left as an exercise for the reader
+//							}
+							
+//							System.out.println(String.format("%s;%s;%d;%s;%s", new String(pass), new String(pin), interactions, encoding, decoded));
+							
+//							OutputStream os = new FileOutputStream("/tmp/hex" + counter.get() + ".hex");
+//						    os.write(decrypted);
+//						    os.close();
 						    
 						    counter.incrementAndGet();
 							
 							// lines above print the inner block decrypted string
-//							 int offset = decrypted.length - 224;
+//							  int offset = decrypted.length - 224 + 96;
+						     // int offset = 159;
 //							 byte[] newBlock = Arrays.copyOfRange(decrypted, offset, decrypted.length);
 							
 //							 byte[] newDecrypted = cipher.doFinal(newBlock);
 //							 String innerString = new String(newDecrypted, guessEncoding(newDecrypted));
-//							 System.out.println(String.format("Pass \"%s\" + PIN \"%s\" reverse \"%s\" decrypted the inner block! ",
-//									 record.get(0).trim(), record.get(1).trim(), record.get(3).trim()));
+//							 System.out.println(String.format("Pass \"%s\" + PIN \"%s\" reverse \"%s\" with %d interactions with offset %d decrypted the inner block! ",
+//									 record.get(0).trim(), record.get(1).trim(), record.get(3).trim(), interactions, offset));
 //							 System.out.println(innerString);
 							
 						} catch (Exception e) {
@@ -158,19 +174,6 @@ public class TesteAleatorio implements CommandLineRunner {
 			pool.shutdown();
 			pool.awaitTermination(1, TimeUnit.DAYS);
 		}
-	}
-
-	public static String guessEncoding(byte[] bytes) {
-		String DEFAULT_ENCODING = "UTF-8";
-		UniversalDetector detector = new UniversalDetector(null);
-		detector.handleData(bytes, 0, bytes.length);
-		detector.dataEnd();
-		String encoding = detector.getDetectedCharset();
-		detector.reset();
-		if (encoding == null) {
-			encoding = DEFAULT_ENCODING;
-		}
-		return encoding;
 	}
 
 	/**
@@ -229,7 +232,7 @@ public class TesteAleatorio implements CommandLineRunner {
 
 					try {
 						byte[] innerString = Arrays.copyOfRange(decryptedBytes, 0, decryptedBytes.length - 224);
-						System.out.println(String.format("Inner string (length: %d): %s", innerString.length, new String(innerString, guessEncoding(innerString))));
+						System.out.println(String.format("Inner string (length: %d): %s", innerString.length, new String(innerString, Utils.guessEncoding(innerString))));
 						
 						@SuppressWarnings("unused")
 						byte[] innerBytes = cipher.doFinal(Arrays.copyOfRange(decryptedBytes, decryptedBytes.length - 224 + 16, decryptedBytes.length));

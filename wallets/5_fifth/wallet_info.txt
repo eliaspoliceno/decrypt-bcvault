@@ -1,0 +1,5 @@
+name: fifth
+private key: A118F63680934E32CB6638EFA8952A3CBBFC237B17EC2C2D28048E0716FB1B93
+public address: 1NG7ZZwzHFw1ddarX5ZmBSTTk5hQ74i6AN
+type: btc
+memory region: 0x500 (0x501) ~ 0x600

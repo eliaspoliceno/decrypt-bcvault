@@ -1,0 +1,5 @@
+name: seventh
+private key: 6CBD470A6F3F242DB22374502920451D9D29126A000304012E126BFB24E1DFDC
+public address: 1JPCCy2J9uipUhncJjWfUf6zTp16t7MvrD
+type: btc
+memory region: 0x700 (0x701) ~ 0x800

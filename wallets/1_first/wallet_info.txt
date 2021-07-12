@@ -1,0 +1,5 @@
+name: first
+private key: 15FACC59ADD07AD8B4EBC6B1968D5E97A238ED43A14970D2D9ACABCFADE951AF
+public address: 1LgCWyPd2B4tJf25cDHwRS2QS3Kd79nezg
+type: btc
+memory region: 0x100 (0x101) ~ 0x200
