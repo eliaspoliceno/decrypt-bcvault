@@ -29,6 +29,9 @@ public class AESUtil {
 
 	private static final String path = "../backups/05-bk_20210707_094509_dAk7WAiaK4658hd8k5i.bin";
 	public static final String CIPHER_INSTANCE = "AES/CBC/PKCS5PADDING";
+	public static final String CIPHER_INSTANCE_PCBC = "AES/PCBC/PKCS5PADDING";
+	public static final String CIPHER_INSTANCE_CBC_NOPADDING = "AES/CBC/NoPadding";
+	public static final String CIPHER_INSTANCE_ECB = "AES/ECB/PKCS5PADDING";
 
 	public static SecretKey getKeyFromPassword(String password, String salt)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {

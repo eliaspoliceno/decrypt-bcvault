@@ -38,7 +38,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VaryingOffset implements CommandLineRunner {
 
-	private static final boolean RUN = Boolean.TRUE;
+	private static final boolean RUN = Boolean.FALSE;
 	
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();

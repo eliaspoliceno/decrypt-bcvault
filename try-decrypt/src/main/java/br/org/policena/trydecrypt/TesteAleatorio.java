@@ -4,9 +4,7 @@
 package br.org.policena.trydecrypt;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.spec.KeySpec;
@@ -30,7 +28,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bouncycastle.crypto.generators.BCrypt;
 import org.bouncycastle.crypto.generators.SCrypt;
-import org.mozilla.universalchardet.UniversalDetector;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -41,11 +38,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TesteAleatorio implements CommandLineRunner {
 
-	private static final boolean RUN = Boolean.FALSE;
-	private static final boolean RUN_OLD = Boolean.FALSE;
-	private static final boolean RUN_NEW = Boolean.TRUE;
+	private static final boolean RUN = Boolean.TRUE;
+	private static final boolean RUN_OLD = Boolean.TRUE;
+	private static final boolean RUN_NEW = Boolean.FALSE;
 	
-	private static int MODE = 1; // 0 for PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt
+	// 0 for PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
+	private static int MODE = 0; 
 	
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
@@ -63,7 +61,11 @@ public class TesteAleatorio implements CommandLineRunner {
 				// SecretKey key = new SecretKeySpec(bh.hash("1234".getBytes(),
 				// "2341".getBytes()), "AES");
 
+//				String path = "../backups/07-bk_20210707_094729_dAk7WAiaK4658hd8k5k.bin";
 				String path = "../backups/27-bk_20210707_115052_3ke1HhjtW2gdPEzJVB9Ze.bin";
+//				String path = "../backups/31-bk_20210713_084629_3ke1HhjtW2gdPEzJVB9dz.bin";
+//				String path = "../backups/35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin";
+				
 				byte[] file = Files.readAllBytes(Paths.get(path));
 				// byte[] file = AESUtil.loadFileBytesNormal();
 				byte[] blockAes = Arrays.copyOfRange(file, 0x110, 0x200);
@@ -193,13 +195,13 @@ public class TesteAleatorio implements CommandLineRunner {
 		if ( MODE == 0 ) {
 			interactions = 100_000;
 		}
-		for (int i = 0; i < interactions; ++i) {
+		for (int i = 0; i <= interactions; ++i) {
 			final int iInner = i;
 			pool.submit(() -> {
 				try {
 					
 					byte[] bytes;
-					if ( MODE == 0 ) {
+					if ( MODE == 0 || MODE == 3 ) {
 						KeySpec spec = new PBEKeySpec(password.toCharArray(), pin.getBytes(), iInner, 256);
 						bytes = factory.generateSecret(spec).getEncoded();
 					} else if ( MODE == 1 ) {
@@ -222,8 +224,17 @@ public class TesteAleatorio implements CommandLineRunner {
 					SecretKey key = new SecretKeySpec(bytes, "AES");
 
 					Cipher cipher;
-					cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
-					cipher.init(Cipher.DECRYPT_MODE, key, iv);
+					if ( MODE == 3 ) {
+						cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_PCBC);
+					} else {
+						cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
+					}
+					
+					if ( MODE == 5 ) {
+						cipher.init(Cipher.DECRYPT_MODE, key);
+					} else {
+						cipher.init(Cipher.DECRYPT_MODE, key, iv);
+					}
 
 					byte[] decryptedBytes = cipher.doFinal(blockAes);
 					// String decrypted = new String(decryptedBytes);
@@ -232,22 +243,22 @@ public class TesteAleatorio implements CommandLineRunner {
 
 					try {
 						byte[] innerString = Arrays.copyOfRange(decryptedBytes, 0, decryptedBytes.length - 224);
-						System.out.println(String.format("Inner string (length: %d): %s", innerString.length, new String(innerString, Utils.guessEncoding(innerString))));
+//						System.out.println(String.format("Inner string (length: %d): %s", innerString.length, new String(innerString, Utils.guessEncoding(innerString))));
 						
 						@SuppressWarnings("unused")
-						byte[] innerBytes = cipher.doFinal(Arrays.copyOfRange(decryptedBytes, decryptedBytes.length - 224 + 16, decryptedBytes.length));
+						byte[] innerBlockBytes = cipher.doFinal(Arrays.copyOfRange(decryptedBytes, decryptedBytes.length - 224, decryptedBytes.length));
 						twice = Boolean.TRUE;
 						if ( MODE != 0 ) {
 							
 							// trying to decrypt inner block
-							//System.out.println(String.format("Inner bytes (length: %d): \"%s\"", innerBytes.length, new String(innerBytes, guessEncoding(innerBytes))));
+							//System.out.println(String.format("Inner bytes (length: %d): \"%s\"", innerBlockBytes.length, new String(innerBytes, guessEncoding(innerBlockBytes))));
 							
 //							try {
-//								System.out.println("Base58: " + Base58.decode(new String(decryptedBytes)));
+//								System.out.println("Base58: " + Base58.decode(new String(innerBlockBytes)));
 //							} catch (Exception ex) {
 //							}
 //							try {
-//								System.out.println("Base64: " + Base64.getDecoder().decode(new String(decryptedBytes)));
+//								System.out.println("Base64: " + Base64.getDecoder().decode(new String(innerBlockBytes)));
 //							} catch (Exception ex) {
 //							}
 						}
@@ -280,9 +291,9 @@ public class TesteAleatorio implements CommandLineRunner {
 					}
 
 					
-					OutputStream os = new FileOutputStream("/tmp/hex" + counter.get() + ".hex");
-				    os.write(decryptedBytes);
-				    os.close();
+//					OutputStream os = new FileOutputStream("/tmp/hex" + counter.get() + ".hex");
+//				    os.write(decryptedBytes);
+//				    os.close();
 				    
 				    counter.incrementAndGet();
 				} catch (Exception ex) {
