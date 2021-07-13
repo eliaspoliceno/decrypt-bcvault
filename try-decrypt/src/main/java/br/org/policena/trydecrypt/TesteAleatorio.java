@@ -286,7 +286,7 @@ public class TesteAleatorio implements CommandLineRunner {
 				    
 				    counter.incrementAndGet();
 				} catch (Exception ex) {
-					//ex.printStackTrace();
+//					ex.printStackTrace();
 				}
 			});
 
