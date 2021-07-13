@@ -42,7 +42,7 @@ public class TesteAleatorio implements CommandLineRunner {
 	private static final boolean RUN_OLD = Boolean.TRUE;
 	private static final boolean RUN_NEW = Boolean.FALSE;
 	
-	// 0 for PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
+	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
 	private static int MODE = 0; 
 	
 	private ExecutorService pool;
@@ -118,9 +118,8 @@ public class TesteAleatorio implements CommandLineRunner {
 						try {
 							SecretKey key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
 							
-							Cipher cipher;
-							cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
-							cipher.init(Cipher.DECRYPT_MODE, key, iv);
+							Cipher cipher = getCipher();
+							initCipher(cipher, key, iv);
 							
 							byte[] toDecrypt = blockAes;
 							if (reverse) {
@@ -201,16 +200,13 @@ public class TesteAleatorio implements CommandLineRunner {
 				try {
 					
 					byte[] bytes;
-					if ( MODE == 0 || MODE == 3 ) {
-						KeySpec spec = new PBEKeySpec(password.toCharArray(), pin.getBytes(), iInner, 256);
-						bytes = factory.generateSecret(spec).getEncoded();
-					} else if ( MODE == 1 ) {
+					if ( MODE == 1 ) {
 						bytes = BCrypt.generate(
 								password.getBytes(), // byte array of user supplied, low entropy passw 
 								Arrays.copyOf(pin.getBytes(), 16), // 128 bit(= 16 bytes), CSPRNG generated salt
 					            iInner // cost factor, performs 2^14 iterations.
 					            );
-					}  else {
+					}  else if ( MODE == 2 ) {
 						bytes = SCrypt.generate(
 								password.getBytes(), // user supplied password, converted into byte array
 								Arrays.copyOf(pin.getBytes(), 16), // salt of size 32 bytes
@@ -219,22 +215,15 @@ public class TesteAleatorio implements CommandLineRunner {
 					            1, // Parallelization parameter:
 					            32 // (256 bits) Length of output key size
 					            );
+					} else {
+						KeySpec spec = new PBEKeySpec(password.toCharArray(), pin.getBytes(), iInner, 256);
+						bytes = factory.generateSecret(spec).getEncoded();
 					}
 					
 					SecretKey key = new SecretKeySpec(bytes, "AES");
 
-					Cipher cipher;
-					if ( MODE == 3 ) {
-						cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_PCBC);
-					} else {
-						cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
-					}
-					
-					if ( MODE == 5 ) {
-						cipher.init(Cipher.DECRYPT_MODE, key);
-					} else {
-						cipher.init(Cipher.DECRYPT_MODE, key, iv);
-					}
+					Cipher cipher = getCipher();
+					initCipher(cipher, key, iv);
 
 					byte[] decryptedBytes = cipher.doFinal(blockAes);
 					// String decrypted = new String(decryptedBytes);
@@ -304,6 +293,39 @@ public class TesteAleatorio implements CommandLineRunner {
 			while (queue.size() > interactions) {
 				TimeUnit.MILLISECONDS.sleep(100);
 			}
+		}
+	}
+
+	/**
+	 * @return 
+	 * @throws Exception 
+	 */
+	private Cipher getCipher() throws Exception {
+		Cipher cipher;
+		if ( MODE == 3 ) {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_PCBC);
+		} else if ( MODE == 4 ) {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_CBC_NOPADDING);
+		} else if ( MODE == 5 ) {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_ECB);
+		} else if ( MODE == 6 ) {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_CTR);
+		} else {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
+		}
+		return cipher;
+	}
+	
+	/**
+	 * @param cipher
+	 * @param key
+	 * @param iv
+	 */
+	private void initCipher(Cipher cipher, SecretKey key, IvParameterSpec iv) throws Exception {
+		if ( MODE == 5 ) {
+			cipher.init(Cipher.DECRYPT_MODE, key);
+		} else {
+			cipher.init(Cipher.DECRYPT_MODE, key, iv);
 		}
 	}
 
