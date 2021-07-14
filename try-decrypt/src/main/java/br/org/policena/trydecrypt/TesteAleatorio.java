@@ -43,7 +43,7 @@ public class TesteAleatorio implements CommandLineRunner {
 	private static final boolean RUN_NEW = Boolean.FALSE;
 	
 	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
-	private static int MODE = 6; 
+	private static int MODE = 5; 
 	
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
