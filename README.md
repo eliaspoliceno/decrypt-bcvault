@@ -68,6 +68,11 @@ The uppercase wallet names change, and also one single letter increase, caused t
 When modifying the name, the combination of pass, pin and interactions didn't works anymore, so i had to regenerate the file with these combinations in [output folder](output).  
 Now i am thinking if CBC mode can cause this, or if is this file were encrypted in another mode of operation (maybe PCBC or CTR or even ECB)?  
 
+#### 2021-07-14
+Added ghidra repo folder. Imported [firmware/firmware_1.5.6.bin](firmware/firmware_1.5.6.bin) and added file [backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin](backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin) to memory.  
+Then i played [leveldown svd file loader](https://github.com/leveldown-security/SVD-Loader-Ghidra) with [svdfile/ATSAM4SD32B.svd](svdfile/ATSAM4SD32B.svd), and analyzed it selecting "ARM Agressive Instruction Finder" and "Scalar Operand References".  
+Lastly, i searched for AES-256 vectors as someone pointed in [this article](https://www.pentestpartners.com/security-blog/reverse-engineering-keys-from-firmware-a-how-to/).  
+
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  
 
