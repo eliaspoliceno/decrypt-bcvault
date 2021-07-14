@@ -43,7 +43,7 @@ public class TesteAleatorio implements CommandLineRunner {
 	private static final boolean RUN_NEW = Boolean.FALSE;
 	
 	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
-	private static int MODE = 5; 
+	private static int MODE = 0; 
 	
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
@@ -62,9 +62,9 @@ public class TesteAleatorio implements CommandLineRunner {
 				// "2341".getBytes()), "AES");
 
 //				String path = "../backups/07-bk_20210707_094729_dAk7WAiaK4658hd8k5k.bin";
-				String path = "../backups/27-bk_20210707_115052_3ke1HhjtW2gdPEzJVB9Ze.bin";
+//				String path = "../backups/27-bk_20210707_115052_3ke1HhjtW2gdPEzJVB9Ze.bin";
 //				String path = "../backups/31-bk_20210713_084629_3ke1HhjtW2gdPEzJVB9dz.bin";
-//				String path = "../backups/35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin";
+				String path = "../backups/35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin";
 				
 				byte[] file = Files.readAllBytes(Paths.get(path));
 				// byte[] file = AESUtil.loadFileBytesNormal();
