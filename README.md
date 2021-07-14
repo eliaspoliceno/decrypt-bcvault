@@ -14,7 +14,7 @@ The firmware is available for public download at these official urls:
 [https://update.bc-vault.com/downloads/firmware_1.5.9.bin](https://update.bc-vault.com/downloads/firmware_1.5.9.bin)  
 
 They can be loaded into ghidra as a Cortex little endian (the device is an Atmel ATSAM4SD32B).  
-Base address is 0x00800000, you will need the backup files in this repo in address 0x20000000 (SRAM) and 0x60000000 (external SRAM). I have not tryed to load it in IDA Pro as i have not an license.  
+Base address is 0x00400000, you will need the backup files in this repo in address 0x20000000 (SRAM) and 0x60000000 (external SRAM). I have not tryed to load it in IDA Pro as i have not an license.  
 
 # Testing it
 To start testing, i bought another device, which one i can do whatever i want. This device came in its 1.6 hardware version (previous device is 1.2). So i started from scratch and followed these steps defined in [steps file](test-steps.md).  

@@ -33,6 +33,7 @@ public class AESUtil {
 	public static final String CIPHER_INSTANCE_CBC_NOPADDING = "AES/CBC/NoPadding";
 	public static final String CIPHER_INSTANCE_ECB = "AES/ECB/PKCS5PADDING";
 	public static final String CIPHER_INSTANCE_CTR = "AES/CTR/PKCS5PADDING";
+	public static final String CIPHER_INSTANCE_GCM = "AES/GCM/NoPadding";
 
 	public static SecretKey getKeyFromPassword(String password, String salt)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {

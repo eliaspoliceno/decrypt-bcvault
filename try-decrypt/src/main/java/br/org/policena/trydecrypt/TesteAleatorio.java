@@ -39,10 +39,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TesteAleatorio implements CommandLineRunner {
 
 	private static final boolean RUN = Boolean.TRUE;
-	private static final boolean RUN_OLD = Boolean.FALSE;
-	private static final boolean RUN_NEW = Boolean.TRUE;
+	private static final boolean RUN_OLD = Boolean.TRUE;
+	private static final boolean RUN_NEW = Boolean.FALSE;
 	
-	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
+	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR, 7 for GCM
 	private static int MODE = 3; 
 	
 	private ExecutorService pool;
@@ -200,7 +200,7 @@ public class TesteAleatorio implements CommandLineRunner {
 		AtomicLong counter = new AtomicLong();
 
 		int interactions = 17;
-		if ( MODE == 0 ) {
+		if ( MODE == 0 || MODE == 3 || MODE == 4 || MODE == 5 || MODE == 6 || MODE == 7 ) {
 			interactions = 100_000;
 		}
 		for (int i = 0; i <= interactions; ++i) {
@@ -319,6 +319,8 @@ public class TesteAleatorio implements CommandLineRunner {
 			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_ECB);
 		} else if ( MODE == 6 ) {
 			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_CTR);
+		} else if ( MODE == 7 ) {
+			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE_GCM);
 		} else {
 			cipher = Cipher.getInstance(AESUtil.CIPHER_INSTANCE);
 		}
