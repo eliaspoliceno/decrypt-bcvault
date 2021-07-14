@@ -1,10 +1,10 @@
 # decrypt-bcvault
-My personal effort trying to decrypt BCVault device.
+My efforts trying to decrypt BCVault device.
 
 # Briefing
 I bought BC Vault hardware wallet, then i created several wallets and backed them up. So i have kept storing my funds in one wallet which now i know i don't wrote the password correctly. Sad but true.  
-As my property, i can assure it will never go through BCVault's support no matter which secure way they provide.  
-By knowing Global Pass, Global PIN, and another wallets passwords and PINs, i can brute-force this only wallet by myself, as their support will try to do.  
+As my property, i can assure it will never go through BCVault's support no matter which secure way would be provided.  
+By knowing Global Pass, Global PIN, and another wallets passwords and PINs, i can brute-force this only wallet by myself, as i think their support will try to do.  
 Offcourse, this depends on discovering which encryption method these backup uses, which lead me to asking for help.  
 
 # Firmware analysis
@@ -17,7 +17,7 @@ They can be loaded into ghidra as a Cortex little endian (the device is an Atmel
 Base address is 0x00800000, you will need the backup files in this repo in address 0x20000000 (SRAM) and 0x60000000 (external SRAM). I have not tryed to load it in IDA Pro as i have not an license.  
 
 # Testing it
-To start testing, i bought another device, which one i can do whatever i want. This device came in its 1.6 hardware version (previous device is 1.2). So i started from scratch and followed these steps defined in [steps file](test-steps.md):  
+To start testing, i bought another device, which one i can do whatever i want. This device came in its 1.6 hardware version (previous device is 1.2). So i started from scratch and followed these steps defined in [steps file](test-steps.md).  
 
 After that, i compared the bin backup files, with these results:  
 1. First 0x100 bytes are apparently reserved for device name.  
@@ -54,7 +54,7 @@ Added BCrypt and Scrypt key specs to *TesteAleatorio* class, with a new *MODE* v
 Comes to me that the decrypted block have 239 bytes, and this number should be multiple of 16 to be another inner AES-256 CBC block.  
 Then, i added an 14 bytes length offset from the beginning of the result bytes block to try to decrypt the inner block. This 14 bytes i think they should store 32 character wallet name plus 34 character wallet address.  
 No SCrypt combinations decrypted the outer bytes block.  
-Only two BCrypt combinations decrypted the block but not the inner block and.  
+Only two BCrypt combinations decrypted the block but not the inner block.  
 
 #### 2021-07-12
 BCVault security model article means that there is two security layers, one maded by your global pin and pass, and another made by each wallet pin and password.  

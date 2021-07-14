@@ -39,11 +39,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TesteAleatorio implements CommandLineRunner {
 
 	private static final boolean RUN = Boolean.TRUE;
-	private static final boolean RUN_OLD = Boolean.TRUE;
-	private static final boolean RUN_NEW = Boolean.FALSE;
+	private static final boolean RUN_OLD = Boolean.FALSE;
+	private static final boolean RUN_NEW = Boolean.TRUE;
 	
 	// 0 for CBC/PBKDF2WithHmacSHA256, 1 for BCrypt, 2 for Scrypt, 3 for PCBC, 4 for CBC no padding, 5 for ECB, 6 for CTR
-	private static int MODE = 0; 
+	private static int MODE = 3; 
 	
 	private ExecutorService pool;
 	LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
@@ -85,7 +85,11 @@ public class TesteAleatorio implements CommandLineRunner {
 
 			if (RUN_NEW) {
 				List<List<String>> records = new ArrayList<>();
-				String path = "../output/results.csv";
+				
+//				String path = "../output/results.csv";
+//				String path = "../output/result-ctr-fl27.csv";
+				String path = "../output/result-pcbc-fl27.csv";
+				
 				try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 					String line;
 					int i = 0;
@@ -98,7 +102,9 @@ public class TesteAleatorio implements CommandLineRunner {
 					}
 				}
 
-				path = "../backups/07-bk_20210707_094729_dAk7WAiaK4658hd8k5k.bin";
+//				path = "../backups/07-bk_20210707_094729_dAk7WAiaK4658hd8k5k.bin";
+				path = "../backups/35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin";
+				
 				byte[] file = Files.readAllBytes(Paths.get(path));
 
 				byte[] blockAes = Arrays.copyOfRange(file, 0x110, 0x200);
@@ -148,6 +154,7 @@ public class TesteAleatorio implements CommandLineRunner {
 //							}
 							
 //							System.out.println(String.format("%s;%s;%d;%s;%s", new String(pass), new String(pin), interactions, encoding, decoded));
+//							System.out.println(String.format("%s;%s;%d;%s;%s", new String(pass), new String(pin), interactions, encoding, Utils.bytesToHex(header)));
 							
 //							OutputStream os = new FileOutputStream("/tmp/hex" + counter.get() + ".hex");
 //						    os.write(decrypted);
@@ -156,14 +163,16 @@ public class TesteAleatorio implements CommandLineRunner {
 						    counter.incrementAndGet();
 							
 							// lines above print the inner block decrypted string
-//							  int offset = decrypted.length - 224 + 96;
+							  int offset = decrypted.length - 224;
 						     // int offset = 159;
-//							 byte[] newBlock = Arrays.copyOfRange(decrypted, offset, decrypted.length);
+							 byte[] newBlock = Arrays.copyOfRange(decrypted, offset, decrypted.length);
 							
-//							 byte[] newDecrypted = cipher.doFinal(newBlock);
-//							 String innerString = new String(newDecrypted, guessEncoding(newDecrypted));
+							 byte[] newDecrypted = cipher.doFinal(newBlock);
+//							 String innerString = new String(newDecrypted, Utils.guessEncoding(newDecrypted));
 //							 System.out.println(String.format("Pass \"%s\" + PIN \"%s\" reverse \"%s\" with %d interactions with offset %d decrypted the inner block! ",
 //									 record.get(0).trim(), record.get(1).trim(), record.get(3).trim(), interactions, offset));
+							 
+							 System.out.println(Utils.bytesToHex(newDecrypted).contains("15FACC59ADD07AD8B4EBC6B1968D5E97A238ED43A14970D2D9ACABCFADE951AF"));
 //							 System.out.println(innerString);
 							
 						} catch (Exception e) {
