@@ -8,7 +8,7 @@ By knowing Global Pass, Global PIN, and another wallets passwords and PINs, i ca
 Offcourse, this depends on discovering which encryption method these backup uses, which lead me to asking for help.  
 
 # Firmware analysis
-By men-in-the-middle-ing the desktop application, I could find that the firmware is available for public download at these official urls:  
+By man-in-the-middle-ing the desktop application, I could find that the firmware is available for public download at these official urls:  
 [https://update.bc-vault.com/downloads/firmware_1.5.6.bin](https://update.bc-vault.com/downloads/firmware_1.5.6.bin)  
 [https://update.bc-vault.com/downloads/firmware_1.5.7.bin](https://update.bc-vault.com/downloads/firmware_1.5.7.bin)  
 [https://update.bc-vault.com/downloads/firmware_1.5.9.bin](https://update.bc-vault.com/downloads/firmware_1.5.9.bin)  
