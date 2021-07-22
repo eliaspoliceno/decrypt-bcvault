@@ -55,7 +55,7 @@ I have moved older updates to [this file](updates.md)
 #### 2021-07-14
 Added ghidra repo folder. Imported [firmware/firmware_1.5.6.bin](firmware/firmware_1.5.6.bin) and added file [backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin](backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin) to memory.  
 Then i played [leveldown svd file loader](https://github.com/leveldown-security/SVD-Loader-Ghidra) with [svdfile/ATSAM4SD32B.svd](svdfile/ATSAM4SD32B.svd), and analyzed it selecting "ARM Agressive Instruction Finder" and "Scalar Operand References".  
-Lastly, i searched and found in firmware the AES-256 vectors as someone pointed in [this article](https://www.pentestpartners.com/security-blog/reverse-engineering-keys-from-firmware-a-how-to/).  
+I searched and found in firmware the AES-256 vectors as someone pointed in [this article](https://www.pentestpartners.com/security-blog/reverse-engineering-keys-from-firmware-a-how-to/).  
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  
