@@ -66,8 +66,8 @@ So, excluding RNG for now, the backup files must contains: number of wallets (or
 
 #### 2021-08-06
 I am now doing some modifications in the file, trying to understand how data is stored. I could find that this first 16-byte region I was thinking it were the IV is kind of a flag and data region.  
-After doing some modifications, I could determine some byte positions that when changed, marks wallets as hidden or not, secured or not. These changes I am reporting in [THIS OTHER FILE](file-test-steps.md)  
-If you are planning to restore these backup files in your device, please remove the numbers I have added in the very beginning of it's names. The device does not detect if they are not in the regular pattern.  
+After doing some modifications, I could determine some byte positions that when changed, marks wallets as hidden or not, secured or not. These changes I am reporting in [THIS OTHER FILE](file-test-steps.md).  
+If you are planning to restore these backup files in your device, please remove the numbers I have added in the very beginning of it's names. The device does not detect them if they are not in the regular pattern.  
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  
