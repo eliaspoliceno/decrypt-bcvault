@@ -50,12 +50,19 @@ java -jar target/try-decrypt-0.0.1-SNAPSHOT.jar |tee target/results.txt
 5. Again in TesteAleatorio, now with RUN_NEW mode: now i got these interaction numbers in a csv file, i read the block and tryed to guess which encoding the decrypted block uses. Different interaction numbers produces same UTF-8 result (visually equals, i cannot guarantee), not human readable.  
 
 # Updates
-I have moved older updates to [this file](updates.md)  
+I have moved older updates to [THIS FILE](updates.md)  
 
 #### 2021-07-14
 Added ghidra repo folder. Imported [firmware/firmware_1.5.6.bin](firmware/firmware_1.5.6.bin) and added file [backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin](backups/09-bk_20210707_094959_dAk7WAiaK4658hd8k5n.bin) to memory.  
 Then i played [leveldown svd file loader](https://github.com/leveldown-security/SVD-Loader-Ghidra) with [svdfile/ATSAM4SD32B.svd](svdfile/ATSAM4SD32B.svd), and analyzed it selecting "ARM Agressive Instruction Finder" and "Scalar Operand References".  
-I searched and found in firmware the AES-256 vectors as someone pointed in [this article](https://www.pentestpartners.com/security-blog/reverse-engineering-keys-from-firmware-a-how-to/).  
+I searched **and found the AES-256 vectors in firmware** as pointed in [this article](https://www.pentestpartners.com/security-blog/reverse-engineering-keys-from-firmware-a-how-to/).  
+
+#### 2021-07-26  
+When searching for defined strings in Ghidra, I have found some references to [FreeRTOS](https://www.freertos.org/) and Visual Studio. The firmware is apparently compiled using Atmel Studio.  
+I have also did some tests with factory restore function. I am thinking that these backup files may have the RNG seed on it. You have to shake again the device when you factory reset it, but you don't have to shake if you restore a backup.  
+If it is correct, and if we can find the RNG, we can regenerate the private keys by applying the RNG and time-slicing the timestamp. So, that way, we can access the private keys without knowing the wallet PIN and pass.  
+I could also find that the backup files have also some code on it. That piece of code is stored in that part I was thinking it were the IV. I can not guarantee that Ghidra did it job correctly, I am a bit confused about it now. Why would these backups have code on it?  
+So, excluding RNG for now, the backup files must contains: number of wallets (or, if so, we can detect if there is exactly 2000 wallets as they mention); coin type of each wallet; public address; name. This must be under first protection layer.  
 
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  

@@ -35,3 +35,17 @@
 35. Backup [file 35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin](backups/35-bk_20210713_123153_3ke1HhjtW2gdPEzJVB9e4.bin)  
 36. Renamed device to My BC Vault Elias Tests
 37. Backup [file 37-bk_20210713_165454_3ke1HhjtW2gdPEzJVB9e6.bin](backups/37-bk_20210713_165454_3ke1HhjtW2gdPEzJVB9e6.bin)  
+38. Renamed first wallet from "first0" again to "first0"  
+39. Backup [39-bk_20210806_101608_3ke1HhjtW2gdPEzJVB9e8.bin](backups/39-bk_20210806_101608_3ke1HhjtW2gdPEzJVB9e8.bin)  
+40. Created a ETH wallet with name "a", password "1" and empty pin (got public address 0xfFfC09c62ac1eceB8D34EE67d309a26Df07Ad78d)  
+41. Backup [41-bk_20210806_103307_3ke1HhjtW2gdPEzJVB9iQ.bin](backups/41-bk_20210806_103307_3ke1HhjtW2gdPEzJVB9iQ.bin)  
+42. Created a ETH wallet with name "b", password "1" and empty pin (got public address 0x94fF4811A90A9aD5a4D15305DE16C3649E50B6c6)  
+43. Backup [43-bk_20210806_103730_3ke1HhjtW2gdPEzJVB9iS.bin](backups/43-bk_20210806_103730_3ke1HhjtW2gdPEzJVB9iS.bin)  
+44. Changed the password of ETH wallet "a" from "1" to "2", with empty pin  
+45. Backup [45-bk_20210806_104034_3ke1HhjtW2gdPEzJVB9iU.bin](backups/45-bk_20210806_104034_3ke1HhjtW2gdPEzJVB9iU.bin)  
+46. Changed the password of ETH wallet "a" back from "2" to "1", with empty pin  
+47. Backup [47-bk_20210806_105345_3ke1HhjtW2gdPEzJVB9iW.bin](backups/47-bk_20210806_105345_3ke1HhjtW2gdPEzJVB9iW.bin)  
+48. Changed the ETH wallet name from "a" to "b"  
+49. Backup [49-bk_20210806_105424_3ke1HhjtW2gdPEzJVB9iY.bin](backups/49-bk_20210806_105424_3ke1HhjtW2gdPEzJVB9iY.bin)  
+50. Created a third ETH wallet, with no name, with empty pin, got public address "0xCcC185d7b2F9Cc242D8f397347f965519590Db22". Could not determine max password lengh in desktop app (entered "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")  
+51. Backup [51-bk_20210806_114005_3ke1HhjtW2gdPEzJVB9np.bin](backups/51-bk_20210806_114005_3ke1HhjtW2gdPEzJVB9np.bin)  
