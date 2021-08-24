@@ -1,0 +1,8 @@
+global password: abc
+global pin: 1234
+wallet password: abc
+wallet pin: 1234
+wallet name: bitcoin
+wallet type: bitcoin
+wallet public address: 1NTeJWA3spGCRt8p2E4AA2y63Vrc3pzBaE
+wallet private key: 2432E1106BE7177755DA0D3E4771503B5FB3B45A96CCF1C70D4023840AA84624

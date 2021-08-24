@@ -69,6 +69,17 @@ I am now doing some modifications in the file, trying to understand how data is 
 After doing some modifications, I could determine some byte positions that when changed, marks wallets as hidden or not, secured or not. These changes I am reporting in [THIS OTHER FILE](file-test-steps.md).  
 If you are planning to restore these backup files in your device, please remove the numbers I have added in the very beginning of it's names. The device does not detect them if they are not in the regular pattern.  
 
+### 2021-08-24
+After doing some research, and discussing the problem with some people, one interesting that comes to me is that the wallet address may be part of the salt, or even, there must be some kind of secretwordfrombcvault that can be added when encrypting the private key. So, to figure out if it is the case, I created today several wallets in the same address in the backup files. Details of this can be found in [THE WALLETS FOLDER](wallets/).  
+
+# Summary
+* File is apparently splitted in 256-byte regions  
+* First region is composed by a checksum plus device name  
+* Second region (address 0x100) is the first wallet  
+* For each wallet:  
+	* Offset 0xA apparently marks wallet as hidden (0x03) or not (0x02) and also secured (0x04) or not (0x02)  
+	* Offset 0x5 apparently is the wallet type (0x00 for bitcoin, 0x01 for ethereum)  
+
 # Help need
 Ok guys, now i am asking for help of you experts. Get in touch if interested.  
 
